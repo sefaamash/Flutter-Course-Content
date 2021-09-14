@@ -1,0 +1,86 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+class Apii extends StatefulWidget {
+  @override
+  _ApiiState createState() => _ApiiState();
+}
+
+class _ApiiState extends State<Apii> {
+  //async allow the function to load  till all the data come through internet when we write a sync we add 'await' where our link add means it will tell function to wait till athe data comes
+
+  getuser() async {
+    //list
+    var users = []; //to save thed data in form of list
+
+    //some websites r hhtp some are https so as our we write below our api is https so we write https
+    //all the things till .com is authority and after '/' is unencoded path
+    var response =
+        await http.get(Uri.https('jsonplaceholder.typicode.com', 'users'));
+
+    //now we decode it in our app through json in the form ofjson
+    var jsondata = jsonDecode(response.body); //it will fetch body from that api
+    print(jsondata);
+    
+    if(response.statusCode==200){
+    for (var i in jsondata) {
+      //calling class
+      UserModel user = UserModel(i['name'], i['company'] ['name'], //company is object it has more attributes but we want only name of company so we make another box after company of name then if we want inside then we make another box
+          i['username']); //name should be exact smae as in api
+      users.add(user);
+    }
+    return users;}
+
+    else{
+      throw Exception("failed");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: //Center(
+            //child: ElevatedButton(
+            //onPressed: getuser,
+            //child: Text("API BUTTON"),
+            //),)
+
+            //whenever use api to fetch data we use future builder inside scafold
+            FutureBuilder(
+      future: getuser(),
+      builder: (context, snapshot) {
+        //we can use any name instead of snapshot
+        if (snapshot.data == null) {
+          return Container(
+            child: Text("No dta"),
+          );
+        } else {
+          return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, i) {
+                return ListTile(
+                  //title: Text(snapshot.data[i].name),//we will acces name inside company with its parrent company we already set above then from company object what we want so we call it directly with company name
+                    title: Text(snapshot.data[i].company,
+                );
+              });
+        }
+      }, //we take function we make)
+    ));
+  }
+}
+
+//things we want to get from api we set it in a seperate class its not neccessary that there should be same as in api we r getting
+class UserModel {
+  var name;
+  var company;
+  var username;
+
+  //constructer to set the values
+  UserModel(name, company, username) {
+    this.company = company;
+    this.name = name;
+    this.username = username;
+  }
+}

@@ -1,0 +1,342 @@
+   COLUMN DOESNT SUPPORT SCROOL SO WE WRAP IN SINGLE CHILD SCROLLABLE VIEW
+import 'package:flutter/material.dart';
+import 'package:hello/login.dart';
+import 'package:hello/register.dart';
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      body: SingleChildScrollView(
+        child: Column(//column does alow scrolls we wrap column in a widget single chILD scroll view
+        children: [
+          Container(
+            height: 100,
+            width: 150,
+            color: Colors.amber,
+            margin: EdgeInsets.only(top: 20),
+          ),
+          SizedBox(height: 10,),
+          Container(
+            height: 100,
+            width: 150,
+            color: Colors.amber,
+            margin: EdgeInsets.only(top: 20),
+          ),
+          SizedBox(height: 10,),
+            Container(
+            height: 100,
+            width: 150,
+            color: Colors.amber,
+            margin: EdgeInsets.only(top: 20),
+          ),
+          SizedBox(height: 10,),
+            Container(
+            height: 100,
+            width: 150,
+            color: Colors.amber,
+            margin: EdgeInsets.only(top: 20),
+          ),
+          SizedBox(height: 10,),
+            Container(
+            height: 100,
+            width: 150,
+            color: Colors.amber,
+            margin: EdgeInsets.only(top: 20),
+          ),
+          SizedBox(height: 10,),
+      
+        ],
+        ),
+      ),
+    );
+  }
+}
+
+                                                                                                         SCROLLING IN LIST VIEW
+
+
+import 'package:flutter/material.dart';
+import 'package:hello/login.dart';
+import 'package:hello/register.dart';
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      body: SingleChildScrollView(
+        child: Column(//column does alow scrolls we wrap column in a widget single chILD scroll view but in list it it will not scroll
+        //beause list has its own scroll view and if there is only one scrolloption then scroll will work
+        //on more than 2 option it will not work so we use physics:NeverScrollableScrollPhysics property false scroll view of list
+        children: [
+          
+          ListView(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,//it is false default to adjust the size of listview automatically acording to page
+            children: [
+              Container(
+                //list view takes full width height
+                height: 300,
+                color: Colors.red,
+                margin: EdgeInsets.only(top: 20),
+              ),
+              SizedBox(height: 20,),
+               Container(
+                //list view takes full width height
+                height: 300,
+                color: Colors.red,
+                margin: EdgeInsets.only(top: 20),
+              ), SizedBox(height: 20,),
+                Container(
+                //list view takes full width height
+                height: 300,
+                color: Colors.red,
+                margin: EdgeInsets.only(top: 20),
+              ), SizedBox(height: 20,),
+                Container(
+                //list view takes full width height
+                height: 300,
+                color: Colors.red,
+                margin: EdgeInsets.only(top: 20),
+              ), SizedBox(height: 20,)
+
+            ]
+            
+          ),
+          ],
+
+        ),
+      ),
+    );
+  }
+}
+
+
+                                                                                                     GRIDVIEW.COUNT SCROLL
+
+import 'package:flutter/material.dart';
+import 'package:hello/login.dart';
+import 'package:hello/register.dart';
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var list = [1, 2, 3, 4, 5, 6, 7, 8,9,10,11,12,13,14];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          //column does alow scrolls we wrap column in a widget single chILD scroll view but in list it it will not scroll
+          //beause list has its own scroll view and if there is only one scrolloption then scroll will work
+          //on more than 2 option it will not work so we use physics:NeverScrollableScrollPhysics property false scroll view of list
+          children: [
+            
+            GridView.count(
+              shrinkWrap: true,//it adjust the grid according to the size or u can say wrap it
+              physics: NeverScrollableScrollPhysics(),//as we gave scroll widget so 2 scroll cant work 1 at a time so we falsen the gridview builtin scroll
+              crossAxisCount: 2,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20,
+              children: List.generate(list.length, (index) {
+                return Container(
+                  color: Colors.red,
+                  height: 200,
+                  width: 250,
+                );
+              }),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+                                                                                                                      CALCULATOR APP
+
+import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
+
+class Calc extends StatefulWidget {
+  @override
+  _CalcState createState() => _CalcState();
+}
+
+class _CalcState extends State<Calc> {
+  var result = " ";
+  Widget butn(var text) {
+    return ElevatedButton(
+        onPressed: () {
+          setState(() {
+            result = result + text;
+          }); //if result is 0 then we press 1 then it will take 1 as result then result=1 then we press + it take it as string add that and the process goes on
+        },
+        child: Text(text));
+  }
+
+  Clear() {
+    setState(() {
+      result = "";
+    });
+  }
+  // all thoings in output func is math expression imported
+
+  output() {
+    //if we want to chnage something like from int to string ten we use parse we use expression instead of var
+    Parser p = Parser();
+    Expression exp = p.parse(result); //in an exp we parse var result
+    //context model The context model keeps track of all known variables and functions.
+    ContextModel cm = ContextModel();
+    //we take double beacause sometime when answer conme in point it will throw error if we pass int
+    double eval = exp.evaluate(EvaluationType.REAL,
+        cm); //we evaluate expression exp  through context model AND THE EXPRESSION WE WRITE + - / * IT WILL TAKE IT INSIDE EVAL
+
+
+    setState(() {
+      result = eval.toString(); //RESULT CONVERTED TO STRING SO EVAL WHICH IS DOUBLE FORM WILL BE CONVERTED TO STRING WHEN ASWER WILL COME
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Column(
+          children: [
+            Text(result,
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                butn("1"),
+                butn("2"),
+                butn("3"),
+                butn("4"),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [butn("5"), butn("6"), butn("7"), butn("8")],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [butn("9"), butn("0"), butn("+"), butn("-")],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                butn("/"),
+                butn("*"),
+                ElevatedButton(onPressed: Clear, child: Text("clear")),
+                ElevatedButton(onPressed: output, child: Text("=")),
+                
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+                                                                                                          TODO APP
+
+import 'package:flutter/material.dart';
+
+class Todo extends StatefulWidget {
+  @override
+  _TodoState createState() => _TodoState();
+}
+
+class _TodoState extends State<Todo> {
+  var output = "";
+  var list = ["1", "2", "3"];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return Container(
+                height: 100,
+                color: Colors.amber,
+                margin: EdgeInsets.only(top: 15),
+                child: ListTile(
+                  title: Text(list[index]),
+                  trailing: Container(
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          list.removeAt(index);//to delete
+                        });
+                      },
+                      child: Icon(Icons.delete), //to ad icon we use trailing),
+                    ),
+                  ),
+                ));
+          }),
+      //floating action button always come on left bottom of the scaffold
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          //show dialog is dialog box it will appear as alert box when we press button in which there is title,inputoption,and action we want to perform so it will add that inthe form of above struction in listview.builder
+
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text("Add ITEMS"),
+                  content: TextField(
+                    onChanged: (value) {
+                      //when we enter something it will get changed
+                      output =
+                          value; //that value we erite saved inside output variable above
+                    },
+                  ),
+                  actions: [
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            list.add(output);
+                          });
+                        },
+                        child: Text("Add"))
+                  ], //action means what we wnat to perform from it
+                );
+              });
+        },
+        child: Text("Add"),
+      ),
+    );
+  }
+}
+
+
+

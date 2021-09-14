@@ -1,0 +1,342 @@
+                                                         LISTVIEW WIDGET
+
+USW IN NAVBARS MOSTLY
+import 'package:flutter/material.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        //Listview it takes full height and width of page we have to set it
+        body: ListView(
+      children: [
+        Container(
+          color: Colors.yellow,
+          height: 100,
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(20),
+                height: 70,
+                width: 50,
+                color: Colors.black,
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Text("abc"),
+                    Text("abc"),
+                    Row(
+                      children: [
+                        Text("abc"),
+                        Text("abc"),
+                        //for icons
+                        Icon(Icons.add), // add icon
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        )
+      ],
+    ));
+}}
+
+
+                                                                      SEPERATE WIDGET WITH ARGUMENT AND CALLING THAT WIDGET IN STF FUNCTION
+
+
+import 'package:flutter/material.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {//making seperate widget and calling it in stf function list view
+    return Scaffold(
+        //Listview it takes full height and width of page we have to set it
+        body: ListView(
+      children: [
+        abc("Aamash"), //calling that widget with argument we can call itmany times we want it will keep on implemeting the code inside that widget its just like the function
+        
+        abc('Neha')
+        
+      ],
+    ));
+  }
+}
+
+Widget abc(var name){
+  return
+   Container(
+          color: Colors.yellow,
+          height: 100,
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(20),
+                height: 70,
+                width: 50,
+                color: Colors.black,
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Text(name),
+                    Icon(Icons.add), // add icon
+                    
+                   
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+  
+}
+
+
+
+                                                                                                                        GRIDVIEW.COUNT
+   import 'package:flutter/material.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var name = ['Aamash', 'Neha'];
+  var age = ['21', '21'];
+  var image = ["assets/aamash.jpg", "assets/neha.jpg"];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        //Listview it takes full height and width of page we have to set it
+        body: GridView.count(
+            //crossAxis Count decides how much elemet will come in one line
+            crossAxisCount: 2,
+            //spacing between each count
+            crossAxisSpacing: 20,
+            children: List.generate(name.length, (index) {
+              return Padding(
+                padding: EdgeInsets.all(8),
+                child: Container(
+                    color: Colors.amber,
+                    child: Center(
+                      child: Text(name[index]),
+                    )),
+              );
+            })));
+  }
+}
+
+
+
+                                                                                                             DRAWER MENU
+
+import 'package:flutter/material.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var name = ['Aamash', 'Neha'];
+  var age = ['21', '21'];
+  var image = ["assets/aamash.jpg", "assets/neha.jpg"];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        //Listview it takes full height and width of page we have to set it
+        //drawer its like hamburger navbar
+        appBar:AppBar(title:Text("APP DRAWER")),
+        drawer: Drawer(
+          child:ListView(
+            children: [
+              DrawerHeader(child:Container(//color: Colors.red,
+              child:Image.network(image[0]))),
+              GestureDetector(onTap: (){},//ITS LIKE WHEN WE TAP WHAT WILL HAPPEN ON TAP FUNCTION
+                child: ListTile(
+                  title:Text("aaa") ,
+                ),
+              )
+
+            ],
+          ) ,),
+
+        );
+  }
+}
+
+                                                                                                                    TAB BAR
+
+IN THIS WE MAKE THREE FILES HOME,LOGIN,REGISTER.DART CALLING LOGIN AND REGISTER INSIDE HOME IN TAB BAR VIEW
+
+
+HOME.DART
+
+import 'package:flutter/material.dart';
+import 'package:hello/login.dart';
+import 'package:hello/register.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var name = ['Aamash', 'Neha'];
+  var age = ['21', '21'];
+  var image = ["assets/aamash.jpg", "assets/neha.jpg"];
+  @override
+  Widget build(BuildContext context) {
+    //we dont take scafold we take two tab controller and make scafold inside it cz now authority is on tabs controller
+    return DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Center(child: Text("Hellow")),
+            //we take tab bars so we gave length 2 above so no we make two tab bars
+            //TABS WILL COME IN BOTTOM OF TABBAR WE CAg SHIFT IT INSIDE TITLE TOO
+            bottom: TabBar(
+              //the tab bar which is unselected that is unselected label color we set it as white
+              unselectedLabelColor: Colors.white,
+              labelColor: Colors.grey,//normal color of label whether slewcted or not selected
+              indicatorColor: Colors.black,//the slider in tab bar it is slider color
+
+              
+              tabs: [
+              Tab(child: Text('LOGIN')), //LOGIN TAB
+              Tab(
+                child: Text('Register'), //REGISTER TAB
+              )
+            ]),
+          ),
+          //in body we gave view of that tab bar
+          body: TabBarView(
+            // it has indexes its like a list on 0inex we pass login page and on 1 we pass signup page
+            children: [
+              Login(), //login page called
+              Register(),
+            ],
+          ),
+        ));
+  }
+}
+LOGIN.DART
+
+import 'package:flutter/material.dart';
+class Login extends StatefulWidget {
+  const Login({ Key? key }) : super(key: key);
+
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(child: Text("LOGIN")),
+      
+    );
+  }
+}
+
+Register.dart
+
+import 'package:flutter/material.dart';
+class Register extends StatefulWidget {
+  const Register({ Key? key }) : super(key: key);
+
+  @override
+  _RegisterState createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(child: Text("REGISTER")),
+      
+    );
+  }
+}
+
+
+                                                                                                    SETSTATE()
+
+SET STATE WORKS LIKE WEHN WE HAVE A EMPTY VARIABLE WE CAN SET ITS VALUE IN A FUNC THROUGH SETSTATE OR CHANGE ANY EXSISITING VALUE
+
+import 'package:flutter/material.dart';
+import 'package:hello/login.dart';
+import 'package:hello/register.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var text = " Hello"; //hello twxt will change to the text we set in setstate
+
+  one() {
+    setState(() {
+       text = "1";
+    });
+  }
+
+  two() {
+    setState(() {
+       text = "2";
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    //we dont take scafold we take two tab controller and make scafold inside it cz now authority is on tabs controller
+    return Scaffold(
+        body: Center(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 20,
+          ),
+          Text("Text: $text"),
+          SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(onPressed:one, child: Text("button1")),
+          SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(onPressed:two, child: Text("button2,")),
+        ],
+      ),
+    ));
+  }
+}
+
+
+
+

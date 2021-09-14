@@ -1,0 +1,130 @@
+ //Row(
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,//to allign row and it is used before children(left>right alignment)  in column (top>bottom alignment)
+        //crossAxisAlignment: CrossAxisAlignment.center,// in row it is (top to botom allignment) in column (left > right)
+        
+        //children: [
+          //Text("ROW 1"),
+           //Text("ROW 2"),
+            //Text("ROW 3"),
+             //Text("ROW 4"),
+        //],)
+
+
+
+//Container(
+         
+        // height: 100,
+        // width: 200,
+        // color:Colors.purple,
+         //Text("Hello World"),
+        // child: Text("HELLO"),//container takes child for further adding// )
+
+
+//COlumn(
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,//to allign row and it is used before children(left>right alignment)  in column (top>bottom alignment)
+        //crossAxisAlignment: CrossAxisAlignment.center,// in row it is (top to botom allignment) in column (left > right)
+        
+        //children: [
+          //Text("ROW 1"),
+           //Text("ROW 2"),
+            //Text("ROW 3"),
+             //Text("ROW 4"),
+        //],)
+        
+
+
+ body://SingleChildScrollView(child: //FOR SCROLL VIEW OF MOBILE APP OTHERWISE PIXEL WILL NOT RESPONDR
+            //Center(child://center is a widget it will centerized all the content inside it
+        //Column(
+          //children: [
+            //Container(
+              //height: 200,
+              //width: 100,
+              //color: Colors.amber,
+              
+            //),
+            //SizedBox(height: 30,),// for spacing in between content
+            //Container(
+              //height: 200,
+              //width: 100,
+              //color: Colors.amber,
+            //), SizedBox(height: 30,),
+            Container(
+              height: 200,
+              width: 100,
+              color: Colors.amber,
+            ), SizedBox(height: 30,),
+            Container(
+              height: 200,
+              width: 100,
+              color: Colors.amber,
+            ), SizedBox(height: 30,),
+            Container(
+              height: 200,
+              width: 100,
+              color: Colors.amber,
+            ), SizedBox(height: 30,), ],)
+      )
+      )
+
+
+                                                                                                                                              LOGIN PAGE
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp()); // running that class named *Myapp* as app
+}
+
+class MyApp extends StatelessWidget { //stateless class
+
+//material app is a widget which acces fields inside its MaterialApp(home:)
+//scalfold is a mobile body in which we work(Scalfold body:)
+//container takes child (Container:child)
+//row col takes children row/col children:
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,// we will retuen material app not container because container doesnt support some functionality as material app does
+    home: Scaffold(
+      appBar: AppBar(
+        title:Center(child:Text("LOGIN")
+      ),
+      ),
+      body: Center(
+        child: Column(
+          
+          children: [
+            SizedBox(height: 50),
+            Container(//we take container beacuse we canrt set height width of textfield by wrapping in a container we can adjust the height width
+
+              width: 200,
+            
+            
+           child: TextField(
+                decoration: InputDecoration(
+    border: OutlineInputBorder(),
+    hintText: 'Username'
+          )),),
+          SizedBox(height: 30),
+          
+           Container(
+              width: 200,
+            child: TextField(
+              decoration: InputDecoration(
+               border: OutlineInputBorder(),
+                hintText: 'Password'
+                
+              )),),
+           SizedBox(height: 30),
+          ElevatedButton(onPressed:(){}, child:Text("Login"))
+          ],),
+      )
+      ),
+        
+    );
+       
+
+   
+    
+  }
+}

@@ -1,0 +1,416 @@
+WE MAKE TWO FILES MAIN.DART ,HOME.DART in home we have stateful widget and all implementation and in MAIN.DART we have stateless class in which we call our STATEFULL CLASS nad further call that stateless clain in main class as we do in dart and before all this we have to link that home.dart in main.dart to bring its functionality inside main.dart
+                             
+
+
+
+                                                                 MAIN.DART
+
+
+import 'package:flutter/material.dart';
+
+import 'home.dart';//CALING HOME.DART INSIDE MAIN.DART
+
+void main() {
+  runApp(MyApp()); // running that class named *Myapp* as app
+}
+
+class MyApp extends StatelessWidget { //stateless class
+
+//material app is a widget which acces fields inside its MaterialApp(home:)
+//scalfold is a mobile body in which we work(Scalfold body:)
+//container takes child (Container:child)
+//row col takes children row/col children:
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,// we will retuen material app not container because container doesnt support some functionality as material app does
+    home: Scaffold(
+      body: Home(),//calling that statefull class we make home
+      ),
+        
+    );
+    
+  }
+}
+
+
+                                                          home.dart
+
+import 'package:flutter/material.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Column(
+      children: [
+        Align(// inside col container has all the working so we wrap container in allign widget and set the allignment inside the widget
+          alignment: Alignment.topCenter,//top centrre is we can also use topleft,topright wtc as per need
+          child: Container(
+            //for margin
+            margin: EdgeInsets.only(top: 20,left: 20),
+              //FOR PADDING
+              //padding: EdgeInsets.all( 20), //pading all means from top bottom left right(all)
+              padding: EdgeInsets.only(left:20,top: 20),//only used if we want for specific side
+              //for allignment of thngs inside the cont we use alignbment inside container for outside we wrap it in a widget then set alignment
+              alignment: Alignment.center,
+              child: Center(child: Text("BOX DECORATION")),
+              width: 100,
+              height: 200,
+              decoration: BoxDecoration(
+                 // color: Colors.red,
+                 //color:Color(0xffe8c492) "through hash" "0xff"
+                 //we can use many gradients apat from linear gradient
+                 gradient: LinearGradient(colors:[ 
+                 Colors.red,
+                 Colors.yellow]),
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(20))),
+        ),
+      ],
+
+
+
+    ));
+  }
+}
+
+       
+                                                                                                                        TEXT STYLING
+import 'package:flutter/material.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Center(
+          child: Text("WELCOME TO FLUTTER",
+          style: TextStyle(color: Colors.lightBlue,fontSize: 25,fontWeight:FontWeight.bold,fontStyle: FontStyle.italic),),
+          
+        ));
+  }
+}
+                                                   
+                                                                                                              CIRCLE AVATAR WIDGET
+import 'package:flutter/material.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: CircleAvatar(
+          //For size of avatar we give radius
+            radius: 50,
+            backgroundColor: Colors.yellow,
+        )
+        );
+  }
+}
+ 
+                                                                                                              BACKGROUND IMAGE
+import 'package:flutter/material.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Center(
+          child: CircleAvatar(
+            //For size of avatar we give radius
+              radius: 100,
+              //backgroundColor: Colors.yellow,
+              //backgroundImage: NetworkImage('link'),
+              backgroundImage: AssetImage("assets/11.jpeg"), first we make asset folder and save our image then open pubspec.yaml and uncomment asset portion and write 
+asset:
+- asset/
+          ),
+        )
+        );
+  }
+
+                                                                                                 LISTVIEW.BUILDER
+USED IF WE HAVE LOT OF DATA SO WE JSUT MAKE A LSIT OF THAT DATA AND BUILD THE PAGE THROUGH WIDGETS AND JUST ADD THAT LIST DATA THROUGH INDEX FOREG LIST[INDEX]
+
+
+import 'package:flutter/material.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var name = ['Aamash', 'Neha'];
+  var age = ['21', '21'];
+  var image = ["assets/aamash.jpg", "assets/neha.jpg"];
+  @override
+  Widget build(BuildContext context) {
+    //making seperate widget and calling it in stf function list view
+    return Scaffold(
+        //Listview it takes full height and width of page we have to set it
+        body: ListView.builder(
+      itemCount: name.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(name[index]),
+          subtitle: Text(age[index]),
+          leading: //CircleAvatar(
+            //backgroundImage: NetworkImage(image[index]),
+         // ),
+         Container(
+           height: 50,
+           width: 20,
+           //this is the way to insert background image inside any container
+           child: Image.network(image[index]),
+           
+         )
+        
+        );
+      },
+    ));
+  }
+}
+
+                                                                                            GRID SYSTEM GRIDVIEW.COUNT
+
+import 'package:flutter/material.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var name = ['Aamash', 'Neha'];
+  var age = ['21', '21'];
+  var image = ["assets/aamash.jpg", "assets/neha.jpg"];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        //Listview it takes full height and width of page we have to set it
+        body: GridView.count(
+            //crossAxis Count decides how much elemet will come in one line
+            crossAxisCount: 2,
+            //spacing between each count
+            crossAxisSpacing: 20,
+            children: List.generate(name.length, (index) {
+              return Padding(
+                padding: EdgeInsets.all(8),
+                child: Container(
+                    color: Colors.amber,
+                    child: Center(
+                      child: Text(name[index]),
+                    )),
+              );
+            })));
+  }
+}
+
+
+
+}
+                                                                                                                    STACK
+import 'package:flutter/material.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Stack(//position widget only used in Stack widget
+          children: [Align(//mow aligining each container
+          alignment: Alignment.bottomCenter,
+            child: Container(
+              color: Colors.red,
+              height: 100,
+              width: 150,
+            ),
+          ),
+          Positioned(
+            top: 20,
+            left: 25,
+            child: Container(
+              color: Colors.green,
+              height: 100,
+              width: 150,
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Container(
+              color: Colors.yellowAccent,
+              height: 100,
+              width: 150,
+            ),
+          ),
+          Positioned(
+            top: 40,
+            
+            child: Container(
+              color: Colors.blue,
+              height: 100,
+              width: 150,
+            ),
+          )],)
+        
+        );
+  }
+}
+
+                                                                                                                        MEDIA QUERY
+import 'package:flutter/material.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Container(
+          color:Colors.amberAccent,
+          //MEDIA QUEARY FOR 50% MUL BY 0.5
+          height:MediaQuery.of(context).size.height*0.5 ,
+          width: MediaQuery.of(context).size.width*0.2)
+        );
+  }
+}
+                                                                                                                             NAVIGATING
+WE MAKE TWO FILES APP.DART HOME.DART CONTENT OF ACC .DART IS NAVIGATED THROUGH A BUTTON IN HIME.DART
+ 
+
+ACC.DART
+import 'package:flutter/material.dart';
+
+//STATEFUL CLASS
+class Acc extends StatefulWidget {
+  @override
+  _AccState createState() => _AccState();
+}
+
+class _AccState extends State<Acc> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Column(
+          children: [
+            Container(
+              child: Text("APP DATA"),),
+              ElevatedButton(onPressed:(){Navigator.pop(context);//.pop takes it back to that page no need of materrialpage route
+              }, child: Text("Back"))
+          ],
+        )
+        );
+  }
+}
+                                                                                                                    LIST TILE WIDGET
+
+import 'package:flutter/material.dart';
+import 'acc.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(// NAVIGATOR WILL NAVIGATE THE PAGE CONEXT WILL FIND CONTEXT AND MATERIAL PAGEB ROUTE WILL FIND FILE OF THAT
+        body: ListTile(
+          // LEADING IS START
+          leading: CircleAvatar(backgroundColor:Colors.amber,
+          radius: 20,),
+          //Title
+          title: Text("Aamash"),
+          //subtitle
+          subtitle: Text("Hey!"),
+          //trailing is the end portion
+          trailing:Column(mainAxisAlignment:MainAxisAlignment.spaceAround,
+            children: [Text("4.25 pm"),
+          CircleAvatar(
+            backgroundColor: Colors.black,
+            radius: 10,
+
+          )
+          ]))
+        );
+  }
+
+ 
+}
+
+HOME.DART
+
+NOW WE IMPORT APP.DART THEN CALLING CLASS  Acc()
+
+import 'package:flutter/material.dart';
+import 'acc.dart';
+
+//STATEFUL CLASS
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(// NAVIGATOR WILL NAVIGATE THE PAGE CONEXT WILL FIND CONTEXT AND MATERIAL PAGEB ROUTE WILL FIND FILE OF THAT
+        body: Container(
+          child: ElevatedButton(onPressed:(){
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>Acc()));//first importing that file whic have Acc class then calling class name in pageRoute Acc()));//navigator.push take it forward and .pop takes it back
+            
+          },
+          child: Text("BUTTON"),
+        ))
+        );
+  }
+
+ 
+}
+
+acc() {
+}
+
+
+
+
+   
+
+
